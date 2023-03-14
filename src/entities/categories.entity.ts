@@ -1,8 +1,10 @@
 import { 
   Entity,
   Column, 
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  OneToMany
 } from "typeorm"
+import { RealEstate } from "./realStates.entity"
 
 @Entity("categories")
 class Category {
@@ -11,6 +13,9 @@ class Category {
 
   @Column({type:"varchar", length:45, unique:true })
   name: string
+
+  @OneToMany(() => RealEstate, (realEstate) => realEstate.category)
+  realEstate: RealEstate[]
 }
 
 export { Category }

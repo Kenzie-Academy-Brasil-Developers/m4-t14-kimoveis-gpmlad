@@ -15,12 +15,11 @@ const ensureCategoryNameIsAvaliableMiddleware = async(request:Request, response:
         name: request.body.name
       }
     })
-    console.log(findCategory)
     if(!findCategory){
       return next()
     }
 
-    throw new AppError("Name already exists",409)
+    throw new AppError("Category already exists",409)
   }
 
   return next()

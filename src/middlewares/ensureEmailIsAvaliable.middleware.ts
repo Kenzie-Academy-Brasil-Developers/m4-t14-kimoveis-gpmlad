@@ -15,7 +15,6 @@ const ensureEmailIsAvaliableMiddleware = async(request:Request, response:Respons
         email: request.body.email
       }
     })
-    console.log(findUser)
     if(!findUser){
       return next()
     }
