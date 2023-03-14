@@ -7,9 +7,6 @@ import {
   OneToOne,
   JoinColumn,
   ManyToOne,
-  AfterRecover,
-  AfterInsert,
-  AfterLoad,
   OneToMany
 } from "typeorm"
 import { Address } from "./addresses.entity";
