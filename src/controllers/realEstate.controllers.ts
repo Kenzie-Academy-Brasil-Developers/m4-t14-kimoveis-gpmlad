@@ -12,7 +12,7 @@ const createRealEstateController = async(request:Request, response:Response):Pro
 }
 
 const readRealEstateController = async(request:Request, response:Response):Promise<Response> => {
-  const realEstates: iRealEstates = await readRealEstateService()
+  const realEstates = await readRealEstateService()
   return response.status(200).json(realEstates)
 }
 

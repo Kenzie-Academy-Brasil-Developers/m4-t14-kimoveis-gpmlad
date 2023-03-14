@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createScheduleService } from "../services/schedules"
+import { createScheduleService, readScheduleByIdService } from "../services/schedules"
 
 const createScheduleController = async(request:Request, response:Response):Promise<Response> => {
   const userId: number = request.user.id
@@ -10,7 +10,10 @@ const createScheduleController = async(request:Request, response:Response):Promi
 }
 
 const readScheduleByIdController = async(request:Request, response:Response):Promise<Response> => {
-  return response.json()
+  const realEstateId: number = parseInt(request.params.id)
+  const schedules = await readScheduleByIdService(realEstateId)
+
+  return response.status(200).json(schedules)
 }
 
 export{
