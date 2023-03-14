@@ -1,6 +1,7 @@
 import { Repository } from "typeorm"
 import { AppDataSource } from "../../data-source"
 import { Address, Category, RealEstate } from "../../entities"
+import { AppError } from "../../errors"
 import { iRealEstate, iRealEstateRequest } from "../../interfaces/realEstate.interfaces"
 import { realEstateSchema } from "../../schemas/realEstate.schemas"
 
@@ -10,9 +11,20 @@ const createRealEstateService = async(realEstateData: iRealEstateRequest):Promis
   const addressRepository: Repository<Address> = AppDataSource.getRepository(Address)
   const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)
 
-  const findCategory: Category | null = await categoryRepository.findOneBy({
-    id: realEstateData.categoryId
+  const findOneAddress = await addressRepository.find({
+    where:{
+      street: realEstateData.address.street
+    }
   })
+  if(findOneAddress.length > 1){
+    throw new AppError("Já existe",409)
+  }
+
+  const findCategory: Category | null = await categoryRepository.findOneBy({
+    id: realEstateData.categoryId ? realEstateData.categoryId : 0
+  })
+  
+
 
   const newAddress: Address = addressRepository.create(realEstateData.address!)
   await addressRepository.save(newAddress)
@@ -27,8 +39,6 @@ const createRealEstateService = async(realEstateData: iRealEstateRequest):Promis
   const newRealEstate = realEstateRepository.create(updatedRealEstate)
   await realEstateRepository.save(newRealEstate)
 
-
-  console.log(newRealEstate)
   const realEstateReturn = realEstateSchema.parse(newRealEstate)
 
   return realEstateReturn
