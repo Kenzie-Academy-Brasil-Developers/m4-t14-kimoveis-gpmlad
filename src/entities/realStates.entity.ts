@@ -9,10 +9,12 @@ import {
   ManyToOne,
   AfterRecover,
   AfterInsert,
-  AfterLoad
+  AfterLoad,
+  OneToMany
 } from "typeorm"
 import { Address } from "./addresses.entity";
 import { Category } from "./categories.entity";
+import { Schedule } from "./schedules.entity";
 
 @Entity("real_estate")
 class RealEstate {
@@ -40,6 +42,9 @@ class RealEstate {
 
   @ManyToOne(()=> Category)
   category: Category
+  
+  @OneToMany(() => Schedule, (schedule) => schedule.realEstate)
+  schedule: Schedule[]
 
 }
 

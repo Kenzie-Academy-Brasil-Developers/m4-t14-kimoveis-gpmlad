@@ -1,13 +1,13 @@
 import { z } from "zod"
-import { userSchema } from "./users.schemas"
-import { realEstateSchema } from "./realEstate.schemas"
+import { userSchema, requestUserSchema } from "./users.schemas"
+import { realEstateRequestSchema, realEstateSchema } from "./realEstate.schemas"
 
 const scheduleSchema = z.object({
   id: z.number(),
   date: z.string(),
   hour: z.string(),
-  realEstate: realEstateSchema,
-  user: userSchema.nullish()
+  realEstate: realEstateRequestSchema,
+  user: requestUserSchema
 })
 
 const createScheduleSchema = scheduleSchema.omit({

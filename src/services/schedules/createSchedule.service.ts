@@ -9,6 +9,8 @@ const createScheduleService = async(scheduleData: iScheduleRequest, userId: numb
   const userRepository: Repository<User> = AppDataSource.getRepository(User)
   const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)
 
+
+
   const findUser = await userRepository.findOne({
     where:{
       id: userId
@@ -20,20 +22,21 @@ const createScheduleService = async(scheduleData: iScheduleRequest, userId: numb
       id: scheduleData.realEstateId ? scheduleData.realEstateId : 0
     }
   })
-
-
-  const newSchedule = scheduleRepository.create({
-    user: findUser!,
+  const newDate = new Date(scheduleData.date)
+  newDate.setHours(+scheduleData.hour.split(":")[0],+scheduleData.hour.split(":")[1])
+ 
+  const newSchedule = {
+    date: newDate.toString(),
+    hour: `${newDate.getHours()}:${newDate.getMinutes()}`,
     realEstate: findRealEstate!,
-    date: new Date(scheduleData.date),
-    hour: new Date(scheduleData.hour)
-  })
+    user: findUser!
 
-  await scheduleRepository.save(newSchedule)
+  }
+  const updatedSchedule = scheduleRepository.create(newSchedule)
+  await scheduleRepository.save(updatedSchedule)
 
-  console.log(newSchedule)
-
-  return newSchedule 
+  console.log(updatedSchedule)
+  return updatedSchedule 
 }
 
 export default createScheduleService

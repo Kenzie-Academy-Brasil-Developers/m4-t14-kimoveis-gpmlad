@@ -4,7 +4,7 @@ import { ensureIsAdminMiddleware, ensureTokenIsValidMiddleware } from "../middle
 
 const scheduleRouter: Router = Router()
 
-scheduleRouter.post("",createScheduleController)
+scheduleRouter.post("",ensureTokenIsValidMiddleware,createScheduleController)
 scheduleRouter.get("/realEstate/:id",ensureTokenIsValidMiddleware,ensureIsAdminMiddleware,readScheduleByIdController)
 
 export default scheduleRouter
