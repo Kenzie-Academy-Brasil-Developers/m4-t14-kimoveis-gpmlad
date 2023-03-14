@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
-import { iRealEstateRequest } from "../interfaces/realEstate.interfaces"
-import { createRealEstateService } from "../services/realEstate"
+import { iRealEstateRequest, iRealEstates } from "../interfaces/realEstate.interfaces"
+import { createRealEstateService, readRealEstateService } from "../services/realEstate"
 
 
 const createRealEstateController = async(request:Request, response:Response):Promise<Response> => {
@@ -12,8 +12,8 @@ const createRealEstateController = async(request:Request, response:Response):Pro
 }
 
 const readRealEstateController = async(request:Request, response:Response):Promise<Response> => {
-
-  return response.json()
+  const realEstates: iRealEstates = await readRealEstateService()
+  return response.status(200).json(realEstates)
 }
 
 export {

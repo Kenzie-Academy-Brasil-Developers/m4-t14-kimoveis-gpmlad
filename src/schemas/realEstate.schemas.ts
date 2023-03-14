@@ -13,7 +13,7 @@ const realEstateSchema = z.object({
   sold: z.boolean().default(false)
 })
 
-const realEstateRequestSchema = realEstateSchema.omit({id:true, category: true, createdAt:true, updatedAt:true, sold:true}).extend({address: createAddressSchema, categoryId:z.number()})
+const realEstateRequestSchema = realEstateSchema.omit({id:true, category: true, createdAt:true, updatedAt:true, sold:true}).extend({address: createAddressSchema, categoryId:z.number(), value: z.number()})
 
 const allRealEstate = z.array(realEstateSchema)
 

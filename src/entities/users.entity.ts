@@ -9,7 +9,6 @@ import {
   BeforeInsert,
   BeforeUpdate
 } from "typeorm"
-import { date } from "zod"
 
 @Entity("users")
 class User {

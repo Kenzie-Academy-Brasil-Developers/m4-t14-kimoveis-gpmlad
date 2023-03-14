@@ -1,9 +1,11 @@
 import { Router } from "express"
-import { createRealEstateController } from "../controllers/realEstate.controllers"
+import { createRealEstateController, readRealEstateController } from "../controllers/realEstate.controllers"
+import { ensureDataIsValidMiddleware, ensureIsAdminMiddleware, ensureTokenIsValidMiddleware } from "../middlewares"
+import { realEstateRequestSchema } from "../schemas/realEstate.schemas"
 
 const realEstateRouter: Router = Router()
 
-realEstateRouter.post("",createRealEstateController)
-realEstateRouter.get("",)
+realEstateRouter.post("",ensureDataIsValidMiddleware(realEstateRequestSchema),ensureTokenIsValidMiddleware,ensureIsAdminMiddleware,createRealEstateController)
+realEstateRouter.get("",readRealEstateController)
 
 export default realEstateRouter

@@ -18,7 +18,7 @@ const createRealEstateService = async(realEstateData: iRealEstateRequest):Promis
   await addressRepository.save(newAddress)
 
   const updatedRealEstate = {
-    value: parseFloat(realEstateData.value).toFixed(2),
+    value: Number(realEstateData.value).toFixed(2),
     size: realEstateData.size,
     address: newAddress,
     category: findCategory!
