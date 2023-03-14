@@ -1,12 +1,14 @@
-/*import { Request, Response } from "express";
-import { createLoginService } from "../services/login/createLogin.services"
+import { Request, Response } from "express";
+import { iLogin } from "../interfaces/login.interfaces";
+import createLoginService from "../services/login/createlogin.services"
 
 const createLoginController = async(request:Request, response:Response): Promise<Response> => {
 
-  const token = await createLoginService(request.body)
+  const loginData: iLogin = request.body
+
+  const token = await createLoginService(loginData)
 
   return response.status(200).json({token: token})
 }
 
 export {createLoginController}
-*/

@@ -1,9 +1,11 @@
-import { Request,Response } from "express";
-import { iUserRequest, iUserReturn, iUsers } from "../interfaces/users.interfaces";
-import createUserService from "../services/users/createUser.service";
-import deleteUserService from "../services/users/deleteUser.service";
-import readUsersService from "../services/users/readUsers.service";
-import updateUserService from "../services/users/updateUser.service";
+import { Request,Response } from "express"
+import { iUserRequest, iUserReturn, iUsers } from "../interfaces/users.interfaces"
+import {
+  createUserService,
+  deleteUserService,
+  readUsersService,
+  updateUserService
+} from "../services/users"
 
 const createUserController = async(request:Request, response:Response):Promise<Response> => {
 

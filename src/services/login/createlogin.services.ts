@@ -1,14 +1,13 @@
-/*
 import { compare } from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { AppDataSource } from '../../data-source'
 import { User } from '../../entities'
 import { AppError } from '../../errors'
-import { ILogin } from '../../interfaces/'
+import { iLogin } from '../../interfaces/login.interfaces'
 import 'dotenv/config'
 import { Repository } from 'typeorm'
 
-const createLoginService = async (loginData: ILogin): Promise<string> => {
+const createLoginService = async (loginData: iLogin): Promise<string> => {
 
     const userRepository: Repository<User> = AppDataSource.getRepository(User)
 
@@ -20,7 +19,7 @@ const createLoginService = async (loginData: ILogin): Promise<string> => {
         throw new AppError('Wrong email or password', 401)
     }
 
-    const passwordMatch = await compare(loginData.password, user.password)
+    const passwordMatch: boolean = await compare(loginData.password, user.password)
 
     if(!passwordMatch){
         throw new AppError('Wrong email or password', 401)
@@ -28,11 +27,11 @@ const createLoginService = async (loginData: ILogin): Promise<string> => {
 
     const token: string = jwt.sign(
         {
-            //birthDate: user.birthDate
+            admin: user.admin
         },
         process.env.SECRET_KEY!,
         {
-            expiresIn: '24h',
+            expiresIn: process.env.EXPIRES_IN,
             subject: String(user.id)
         }
     )
@@ -41,4 +40,3 @@ const createLoginService = async (loginData: ILogin): Promise<string> => {
 }
 
 export default createLoginService
-*/

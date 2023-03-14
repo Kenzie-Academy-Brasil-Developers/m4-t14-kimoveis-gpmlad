@@ -6,7 +6,10 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
-  ManyToOne
+  ManyToOne,
+  AfterRecover,
+  AfterInsert,
+  AfterLoad
 } from "typeorm"
 import { Address } from "./addresses.entity";
 import { Category } from "./categories.entity";
@@ -25,10 +28,10 @@ class RealEstate {
   @Column({type:"integer"})
   size: number
 
-  @CreateDateColumn()
+  @CreateDateColumn({type:"date"})
   createdAt: string
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({type:"date"})
   updatedAt: string
 
   @OneToOne(() => Address)
@@ -37,6 +40,7 @@ class RealEstate {
 
   @ManyToOne(()=> Category)
   category: Category
+
 }
 
 export { RealEstate }

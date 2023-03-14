@@ -2,13 +2,13 @@ import { z } from "zod"
 
 const userSchema = z.object({
   id: z.number(),
-  name: z.string().max(45).min(3),
-  email: z.string().email().max(45).min(10),
+  name: z.string().max(45),
+  email: z.string().email().max(45),
   admin: z.boolean().optional().default(false),
-  password: z.string().max(120).min(4),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  deletedAt: z.date().nullish()
+  password: z.string().max(120),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  deletedAt: z.string().nullish()
 })
 
 const requestUserSchema = userSchema.omit({
